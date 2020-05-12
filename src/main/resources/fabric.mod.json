@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "stacks-n-signals",
+  "version": "${version}",
+  "name": "Stacks n' Signals",
+  "description": "According to all known laws of aviation, there is no way I will remember to put something here before release.",
+  "authors": [
+    "Roadcrosser"
+  ],
+  "contributors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/stacks-n-signals/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "main.java.init"
+    ],
+    "client": [],
+    "server": []
+  },
+  "mixins": [
+    "stacks-n-signals.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  }
+}
