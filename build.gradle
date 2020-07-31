@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.7-SNAPSHOT'
+	id 'fabric-loom' version '0.5.11'
 	id 'maven-publish'
 }
 
@@ -15,8 +15,8 @@ minecraft {
 
 repositories {
 	maven {
-		name = 'Spinnery'
-		url = 'https://dl.bintray.com/spinnery/Spinnery'
+		name = "Spinnery"
+		url  "https://dl.bintray.com/spinnery/Spinnery"
 	}
 }
 
@@ -86,6 +86,5 @@ publishing {
 	repositories {
 		// uncomment to publish to the local maven
 		// mavenLocal()
-
 	}
 }

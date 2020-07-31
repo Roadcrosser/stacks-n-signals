@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "stacks-n-signals:block/soldering_station"
+  }
+}

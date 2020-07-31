@@ -14,7 +14,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "main.java.init"
+      "stacksnsignals.Stacks_n_Signals"
     ],
     "client": [],
     "server": []
