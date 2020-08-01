@@ -1,20 +1,18 @@
 package stacksnsignals.screen;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
-import spinnery.client.screen.BaseContainerScreen;
+import net.minecraft.text.Text;
+import spinnery.client.screen.BaseHandledScreen;
 import spinnery.widget.*;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
-import stacksnsignals.handler.SolderingStationContainer;
+import stacksnsignals.handler.SolderingStationHandler;
 
-public class SolderingStationContainerScreen extends BaseContainerScreen<SolderingStationContainer> {
-    public SolderingStationContainerScreen(SolderingStationContainer container){
-        // Text name, ShestContainer linkedContainer, PlayerEntity player, int x, int y, int m
+public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHandler> {
+    public SolderingStationScreen(Text name, SolderingStationHandler container, PlayerEntity player){
         super(container.name, container, container.player);
 
-        int x = container.x;
-        int y = container.y;
-        int m = container.m;
 
         WInterface mainInterface = getInterface();
 
