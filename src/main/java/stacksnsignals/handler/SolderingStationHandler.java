@@ -1,5 +1,6 @@
 package stacksnsignals.handler;
 
+import net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandlerType;
@@ -22,6 +23,7 @@ public class SolderingStationHandler extends BaseScreenHandler {
     public int y;
     public int m;
 
+    @Override
     public ScreenHandlerType<?> getType() {
         return Stacks_n_Signals.SOLDERING_STATION_HANDLER;
     }
