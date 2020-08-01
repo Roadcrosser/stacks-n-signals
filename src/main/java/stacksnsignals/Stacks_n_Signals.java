@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
@@ -41,12 +42,10 @@ public class Stacks_n_Signals implements ModInitializer {
 
         Registry.register(Registry.BLOCK, SOLDERING_STATION_ID, SOLDERING_STATION);
         Registry.register(Registry.ITEM, SOLDERING_STATION_ID, new BlockItem(SOLDERING_STATION, new Item.Settings().group(ItemGroup.MISC)));
-        ScreenHandlerType<SolderingStationHandler> SOLDERING_STATION_HANDLER = ScreenHandlerRegistry.registerExtended(SOLDERING_STATION_ID, ((synchronizationID, inventory, buffer) -> {
+        SOLDERING_STATION_HANDLER = ScreenHandlerRegistry.registerExtended(SOLDERING_STATION_ID, ((synchronizationID, inventory, buffer) -> {
             return new SolderingStationHandler(synchronizationID, inventory, buffer.readBlockPos());
         }));
-        ScreenRegistry.register(SOLDERING_STATION_HANDLER, (ScreenRegistry.Factory<SolderingStationHandler, SolderingStationScreen>) ((handler, inventory, title) -> {
-            return new SolderingStationScreen(title, handler, inventory.player);
-        }));
+
 
         SOLDERING_STATION_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, SOLDERING_STATION_ID, BlockEntityType.Builder.create(SolderingStationEntity::new, SOLDERING_STATION).build(null));
     }

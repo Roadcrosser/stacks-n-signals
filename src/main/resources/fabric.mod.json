@@ -16,7 +16,9 @@
     "main": [
       "stacksnsignals.Stacks_n_Signals"
     ],
-    "client": [],
+    "client": [
+      "stacksnsignals.Stacks_n_Signals_client"
+    ],
     "server": []
   },
   "mixins": [

@@ -32,11 +32,11 @@ public class SolderingStation extends Block {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             player.sendMessage(new LiteralText("do thing"), false);
-            player.openHandledScreen(new NamedScreenHandlerFactory() {
-//                @Override
-//                public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-//                    buf.writeBlockPos(pos);
-//                }
+            player.openHandledScreen(new ExtendedScreenHandlerFactory() {
+                @Override
+                public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+                    buf.writeBlockPos(pos);
+                }
 
                 @Override
                 public Text getDisplayName() {
