@@ -4,7 +4,9 @@ import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
@@ -18,14 +20,21 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import stacksnsignals.Stacks_n_Signals;
+import stacksnsignals.entity.SolderingStationEntity;
 import stacksnsignals.handler.SolderingStationHandler;
 
-public class SolderingStation extends Block {
+public class SolderingStation extends Block implements BlockEntityProvider {
 
     public SolderingStation(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public BlockEntity createBlockEntity(BlockView blockView) {
+        return new SolderingStationEntity();
     }
 
     @Override

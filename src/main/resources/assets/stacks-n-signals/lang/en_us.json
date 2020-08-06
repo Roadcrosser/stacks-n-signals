@@ -1,3 +1,5 @@
 {
-  "item.stacks-n-signals.soldering_station": "Soldering Station"
+  "itemGroup.stacks-n-signals.general": "Stacks n' Signals",
+  "block.stacks-n-signals.soldering_station": "Soldering Station",
+  "item.stacks-n-signals.breadboard": "Breadboard"
 }
