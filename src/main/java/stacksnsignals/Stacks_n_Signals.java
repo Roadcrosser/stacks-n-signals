@@ -23,10 +23,8 @@ import org.apache.logging.log4j.Logger;
 import stacksnsignals.block.SolderingStation;
 import stacksnsignals.entity.SolderingStationEntity;
 import stacksnsignals.handler.SolderingStationHandler;
-import stacksnsignals.registry.BlockRegistry;
-import stacksnsignals.registry.EntityRegistry;
-import stacksnsignals.registry.HandlerRegistry;
-import stacksnsignals.registry.ItemRegistry;
+import stacksnsignals.item.BreadboardItem;
+import stacksnsignals.registry.*;
 import stacksnsignals.screen.SolderingStationScreen;
 
 
@@ -42,6 +40,7 @@ public class Stacks_n_Signals implements ModInitializer {
             () -> new ItemStack(ItemRegistry.BREADBOARD_ITEM));
 
     public static final Identifier SOLDERING_STATION_ID = new Identifier(MOD_ID, "soldering_station");
+    public static final Identifier SOLDERING_UPDATE_PACKET_ID = new Identifier(MOD_ID, "soldering_update");
 
 
 
@@ -55,6 +54,7 @@ public class Stacks_n_Signals implements ModInitializer {
         EntityRegistry.initialize();
         HandlerRegistry.initialize();
         ItemRegistry.initialize();
+        PacketRegistry.initialize();
         }
 
 

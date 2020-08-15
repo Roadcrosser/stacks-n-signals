@@ -1,5 +1,6 @@
 package stacksnsignals.entity;
 
+import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,12 +15,15 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.Level;
 import spinnery.common.inventory.BaseInventory;
 import spinnery.common.utility.InventoryUtilities;
 import stacksnsignals.Stacks_n_Signals;
 import stacksnsignals.handler.SolderingStationHandler;
 import stacksnsignals.registry.EntityRegistry;
+import stacksnsignals.registry.ItemRegistry;
+import stacksnsignals.screen.SolderingStationScreen;
 
 import static stacksnsignals.Stacks_n_Signals.log;
 
@@ -65,6 +69,12 @@ public class SolderingStationEntity extends BlockEntity implements Inventory, Ex
     public void setStack(int slot, ItemStack stack) {
         stacks.set(slot, stack);
         markDirty();
+
+        // TODO fix this static method thingy
+        if (world != null && world.isClient && slot == 0){
+            SolderingStationScreen.update_text_field(stack);
+        }
+
     }
 
     @Override
@@ -116,4 +126,30 @@ public class SolderingStationEntity extends BlockEntity implements Inventory, Ex
         return tag;
     }
 
+    public static void solder_update_packet(PacketContext packet_context, PacketByteBuf attached_data){
+        // Get the BlockPos we put earlier in the IO thread
+        BlockPos pos = attached_data.readBlockPos();
+        String str = attached_data.readString();
+
+        packet_context.getTaskQueue().execute(() -> {
+            // Execute on the main thread
+
+            // ALWAYS validate that the information received is valid in a C2S packet!
+            if(packet_context.getPlayer().world.canSetBlock(pos)){
+
+                SolderingStationEntity blockentity = (SolderingStationEntity) packet_context.getPlayer().world.getBlockEntity(pos);
+
+                ItemStack bread = blockentity.getStack(0);
+                String bread_text = null;
+
+                if (bread.getItem() == ItemRegistry.BREADBOARD_ITEM){
+                    CompoundTag bread_tag = new CompoundTag();
+                    bread_tag.putString("aaa", str);
+
+                    bread.setTag(bread_tag);
+                }
+            }
+
+        });
+    }
 }

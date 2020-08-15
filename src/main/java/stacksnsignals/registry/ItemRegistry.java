@@ -6,14 +6,14 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import stacksnsignals.Stacks_n_Signals;
+import stacksnsignals.item.BreadboardItem;
 
 import static stacksnsignals.Stacks_n_Signals.MOD_ID;
 import static stacksnsignals.Stacks_n_Signals.SOLDERING_STATION_ID;
 import static stacksnsignals.registry.BlockRegistry.SOLDERING_STATION;
 
 public class ItemRegistry {
-
-    public static final Item BREADBOARD_ITEM = new Item(new Item.Settings().group(Stacks_n_Signals.ITEM_GROUP));
+    public static final BreadboardItem BREADBOARD_ITEM = new BreadboardItem(new Item.Settings().group(Stacks_n_Signals.ITEM_GROUP).maxCount(1));
 
     public ItemRegistry(){
         // NO-OP
