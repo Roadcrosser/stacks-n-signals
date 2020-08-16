@@ -34,7 +34,7 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
             if (bread_tag != null) {
                 bread_text = bread_tag.getString("aaa");
             }
-            textfield.setText("aaa");
+            textfield.setText(bread_text);
 
         }
     }
