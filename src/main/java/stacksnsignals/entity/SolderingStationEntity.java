@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -72,7 +73,7 @@ public class SolderingStationEntity extends BlockEntity implements Inventory, Ex
 
         // TODO fix this static method thingy
         if (world != null && world.isClient && slot == 0){
-            SolderingStationScreen.update_text_field(stack);
+            ((SolderingStationScreen) MinecraftClient.getInstance().currentScreen).update_text_field(stack);
         }
 
     }
