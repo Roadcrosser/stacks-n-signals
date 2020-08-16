@@ -47,15 +47,11 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
         ItemStack bread = blockentity.getStack(0);
         String bread_text = null;
 
-        // TODO (Like right now): Unloading and Reloading chunk will print false negative on the first check, but be correct in subsequent checks. Plz fix me.
         if (bread.getItem() == ItemRegistry.BREADBOARD_ITEM){
-            log(Level.INFO, "Bread is in slot 0");
             CompoundTag bread_tag = bread.getTag();
             if (bread_tag != null){
                 bread_text = bread_tag.getString("aaa");
             }
-        } else {
-            log(Level.INFO, "Bread is not in slot 0");
         }
 
 
