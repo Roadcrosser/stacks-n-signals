@@ -14,9 +14,10 @@ public class SolderGrid {
 
     private ArrayList<ArrayList<ArrayList<SolderGridCell>>> grid = new ArrayList<>();
 
-    public SolderGrid(int z, WPanel parent) {
+    // TODO: add/handle reset & expand methods to avoid destroying classes
+    public SolderGrid(int height, WPanel parent) {
 
-        this.z = z;
+        this.z = height;
 
         // grid display coord calculation
         Position cellpos = Utils.calculate_grid_coordinates(parent);
@@ -42,11 +43,11 @@ public class SolderGrid {
         }
     }
 
-    public void showlayer(int z){
+    public void showlayer(int layer){
         for (int i=0; i<this.z; i++){
             for (int u=0; u<grid_size; u++){
                 for (int v=0; v<grid_size; v++){
-                    grid.get(i).get(u).get(v).set_visibility(z == this.z);
+                    grid.get(i).get(u).get(v).set_visibility(layer == this.z);
                 }
             }
         }
