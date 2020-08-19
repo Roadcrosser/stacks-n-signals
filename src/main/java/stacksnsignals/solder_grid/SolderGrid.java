@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import static stacksnsignals.Constants.*;
 
 public class SolderGrid {
+    boolean wire_mode = false;
+
     private int z = 1;
 
-    private ArrayList<ArrayList<ArrayList<SolderGridCell>>> grid = new ArrayList<>();
+    final private ArrayList<ArrayList<ArrayList<SolderGridCell>>> grid = new ArrayList<>();
 
     // TODO: add/handle reset & expand methods to avoid destroying classes
     public SolderGrid(int height, WPanel parent) {
@@ -35,12 +37,16 @@ public class SolderGrid {
                                 Size.of(cell_size, cell_size)).setParent(parent);
                     }
 
-                    grid.get(i).get(u).add(new SolderGridCell(v, u, i, parent));
+                    grid.get(i).get(u).add(new SolderGridCell(v, u, i, parent, this));
 
                 }
 
             }
         }
+    }
+
+    public boolean wire_mode(){
+        return wire_mode;
     }
 
     public void showlayer(int layer){
@@ -53,8 +59,4 @@ public class SolderGrid {
         }
     }
 
-    private void draw_cell(WPanel parent){
-
-
-    }
 }

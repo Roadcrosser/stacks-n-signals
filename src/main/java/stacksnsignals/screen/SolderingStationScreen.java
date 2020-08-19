@@ -28,7 +28,7 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
     WTextField textfield = null;
     SolderGrid soldergrid;
 
-    int num = 0;
+    boolean bool = false;
 
     public void update_text_field(ItemStack bread) {
         String bread_text = null;
@@ -112,8 +112,8 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
 
         button.setOnMouseClicked((widget, mouseX, mouseY, mouseButton) ->
         {
-            num = num == 1 ? 0 : 1;
-            soldergrid.showlayer(num);
+            bool = !bool;
+//            soldergrid.toggle_lock(bool);
 //            container.player.sendMessage(new LiteralText("text: " + textfield.getText()), false);
 //
 //            PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());

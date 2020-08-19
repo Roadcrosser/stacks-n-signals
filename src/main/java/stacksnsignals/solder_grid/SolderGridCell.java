@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Level;
 import spinnery.widget.WAbstractWidget;
 import spinnery.widget.WPanel;
 import spinnery.widget.WStaticText;
+import spinnery.widget.WToggle;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
 import stacksnsignals.Stacks_n_Signals;
@@ -14,14 +15,18 @@ import static stacksnsignals.Constants.*;
 
 public class SolderGridCell {
 
-    private WStaticText num1;
-    private WStaticText num2;
+    SolderGrid grid;
+
+    WSolderGridCellWireSlot s1;
+    WSolderGridCellWireSlot s2;
 
     private int x;
     private int y;
     private int z;
 
-    public SolderGridCell(int x, int y, int z, WPanel parent){
+    public SolderGridCell(int x, int y, int z, WPanel parent, SolderGrid parent_grid){
+
+        grid = parent_grid;
 
         this.x = x;
         this.y = y;
@@ -32,12 +37,16 @@ public class SolderGridCell {
         cellpos = cellpos.add((cell_size * x), (cell_size * y), 0);
 //
 //
-        num1 = parent.createChild(WStaticText::new, cellpos.add(1, 1, 5), Size.of(50, 50)).setText(new LiteralText(Integer.toString(x))).setParent(parent);
-        num2 = parent.createChild(WStaticText::new, cellpos.add(11, 9, 5), Size.of(50, 50)).setText(new LiteralText(Integer.toString(y))).setParent(parent);
+        parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(1, 1, 5), Size.of(10, 10)).setParent(parent);
+        parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(11, 9, 5), Size.of(10, 10)).setParent(parent);
     }
 
+    public void toggle_lock(boolean lock_state){
+//        s1.set_locked(lock_state);
+//        s2.set_locked(lock_state);
+    }
     public void set_visibility(boolean visibility){
-        num1.setHidden(visibility);
-        num2.setHidden(visibility);
+//        num1.setHidden(visibility);
+//        num2.setHidden(visibility);
     }
 }
