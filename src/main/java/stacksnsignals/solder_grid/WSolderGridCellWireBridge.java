@@ -19,10 +19,6 @@ import static stacksnsignals.Stacks_n_Signals.MOD_ID;
 public class WSolderGridCellWireBridge extends WAbstractWidget {
     ArrayList<WSolderGridCellWireSlot> slot_list = new ArrayList<>();
 
-//    public WSolderGridCellWireBridge() {
-//        setTexture(new Identifier(MOD_ID, "textures/ui/bridge_test.png"));
-//    }
-
     public WSolderGridCellWireBridge set_slots(List<WSolderGridCellWireSlot> slots){
         slot_list.addAll(slots);
         return this;

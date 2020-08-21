@@ -11,6 +11,10 @@ import spinnery.client.render.TextRenderer;
 import spinnery.widget.WAbstractToggle;
 import spinnery.widget.api.Color;
 import stacksnsignals.Stacks_n_Signals;
+import stacksnsignals.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static stacksnsignals.Stacks_n_Signals.MOD_ID;
 
@@ -22,10 +26,17 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
     protected Identifier texture;
     protected Identifier texture_hover;
 
+    ArrayList<WSolderGridCellWireSlot> slot_list = new ArrayList<>();
+
     public WSolderGridCellWireSlot set_cell_position(int cell_position){
         this.cell_position = cell_position;
         texture = new Identifier(MOD_ID, String.format("textures/ui/wires/%d.png", cell_position));
         texture_hover = new Identifier(MOD_ID, String.format("textures/ui/wires/%db.png", cell_position));
+        return this;
+    }
+
+    public WSolderGridCellWireSlot set_slots(List<WSolderGridCellWireSlot> slots){
+        slot_list.addAll(slots);
         return this;
     }
 
@@ -34,6 +45,72 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
         if (!locked){
             super.onMouseClicked(mouseX, mouseY, mouseButton);
         }
+    }
+
+    public boolean within_bounds_raw_check(float xt, float yt){
+        float x0 = 0, y0 = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+
+        switch (cell_position){
+            case 0:
+                x0 = getX();
+                x1 = getWideX();
+                x2 = getX() + (getWidth()/2);
+
+                y0 = getY();
+                y1 = getY();
+                y2 = getHighY();
+
+                break;
+            case 1:
+                x0 = getWideX();
+                x1 = getWideX();
+                x2 = getX();
+
+                y0 = getY();
+                y1 = getHighY();
+                y2 = getY() + (getHeight()/2);
+
+                break;
+            case 2:
+                x0 = getWideX();
+                x1 = getX();
+                x2 = getX() + (getWidth()/2);
+
+                y0 = getHighY();
+                y1 = getHighY();
+                y2 = getY();
+
+                break;
+            case 3:
+                x0 = getX();
+                x1 = getX();
+                x2 = getWideX();
+
+                y0 = getY();
+                y1 = getHighY();
+                y2 = getY() + (getHeight()/2);
+
+                break;
+        }
+
+        return Utils.point_in_triangle(xt, yt, x0, y0, x1, y1, x2, y2);
+    }
+
+    @Override
+    public boolean isWithinBounds(float positionX, float positionY){
+        if (!within_bounds_raw_check(positionX, positionY)){
+            return false;
+        }
+
+        for (int i = 0; i < slot_list.size(); i++){
+            if (i == cell_position){
+                continue;
+            }
+            if (slot_list.get(i).within_bounds_raw_check(positionX, positionY)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -48,6 +125,32 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
 
         float sX = getWidth();
         float sY = getHeight();
+
+        switch (cell_position) {
+            case 0:
+                x += 6;
+                sX -= 12;
+                sY -= 2;
+                break;
+            case 1:
+                x += 2;
+                sX -= 2;
+                y += 6;
+                sY -= 12;
+                break;
+            case 2:
+                x += 6;
+                sX -= 12;
+                y += 2;
+                sY -= 2;
+                break;
+            case 3:
+                sX -= 2;
+                y += 6;
+                sY -= 12;
+                break;
+
+        }
 
         if (getToggleState() || isFocused()){
             Identifier to_draw = texture;
