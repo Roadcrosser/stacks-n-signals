@@ -1,8 +1,10 @@
 package stacksnsignals.solder_grid;
 
+import org.apache.logging.log4j.Level;
 import spinnery.widget.WPanel;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
+import stacksnsignals.Stacks_n_Signals;
 import stacksnsignals.Utils;
 
 import java.util.ArrayList;

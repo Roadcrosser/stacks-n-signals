@@ -15,14 +15,18 @@ import stacksnsignals.Stacks_n_Signals;
 public class WSolderGridCellWireSlot extends WAbstractToggle {
 
     protected boolean locked = false;
+    protected int cell_position = 0;
+
+    public WSolderGridCellWireSlot set_cell_position(int cell_position){
+        this.cell_position = cell_position;
+        return this;
+    }
 
     @Override
     public void onMouseClicked(float mouseX, float mouseY, int mouseButton) {
         if (!locked){
             super.onMouseClicked(mouseX, mouseY, mouseButton);
         }
-
-        Stacks_n_Signals.log(Level.INFO, getToggleState() ? "on" : "off");
     }
 
     @Override

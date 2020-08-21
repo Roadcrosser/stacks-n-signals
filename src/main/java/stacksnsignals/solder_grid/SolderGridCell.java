@@ -11,14 +11,16 @@ import spinnery.widget.api.Size;
 import stacksnsignals.Stacks_n_Signals;
 import stacksnsignals.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static stacksnsignals.Constants.*;
 
 public class SolderGridCell {
 
     SolderGrid grid;
 
-    WSolderGridCellWireSlot s1;
-    WSolderGridCellWireSlot s2;
+    List<WSolderGridCellWireSlot> wire_slots = new ArrayList<>();
 
     private int x;
     private int y;
@@ -32,24 +34,52 @@ public class SolderGridCell {
         this.y = y;
         this.z = z;
 
-
         Position cellpos = Utils.calculate_grid_coordinates(parent);
         cellpos = cellpos.add((cell_size * x), (cell_size * y), 0);
-//
-//
-        s1 = parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(1, 1, 5), Size.of(10, 10)).setParent(parent);
-        s2 = parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(11, 9, 5), Size.of(10, 10)).setParent(parent);
+
+        int slot_l1 = 3;
+        int slot_l2 = 6;
+        for (int i=0; i<4; i++){
+            int slot_width = slot_l1;
+            int slot_height = slot_l2;
+
+            float slot_x = (float)(cell_size - slot_width)/2;
+            float slot_y = 1;
+
+            if (i % 2 != 0){
+                slot_width = slot_l2;
+                slot_height = slot_l1;
+                slot_y = (float)(cell_size - slot_height)/2;
+            }
+
+            switch (i){
+//                case 0:
+//                    break;
+                case 1:
+                    slot_x = cell_size - slot_width - 1;
+                    break;
+                case 2:
+                    slot_y = cell_size - slot_height - 1;
+                    break;
+                case 3:
+                    slot_x = 1;
+                    break;
+                default:
+                    break;
+            }
+
+            wire_slots.add(parent.createChild(WSolderGridCellWireSlot::new).set_cell_position(i).setPosition(cellpos.add(slot_x, slot_y, 5)).setSize(Size.of(slot_width, slot_height)).setParent(parent));
+        }
+
     }
     public int get_z(){
         return this.z;
     }
 
     public void set_locked(boolean lock_state){
-        s1.set_locked(lock_state);
-        s2.set_locked(lock_state);
+        wire_slots.forEach((slot) -> slot.set_locked(lock_state));
     }
     public void set_visibility(boolean visibility){
-//        num1.setHidden(visibility);
-//        num2.setHidden(visibility);
+        wire_slots.forEach((slot) -> slot.setHidden(visibility));
     }
 }
