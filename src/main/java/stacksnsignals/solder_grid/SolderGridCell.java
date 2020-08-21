@@ -37,13 +37,16 @@ public class SolderGridCell {
         cellpos = cellpos.add((cell_size * x), (cell_size * y), 0);
 //
 //
-        parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(1, 1, 5), Size.of(10, 10)).setParent(parent);
-        parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(11, 9, 5), Size.of(10, 10)).setParent(parent);
+        s1 = parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(1, 1, 5), Size.of(10, 10)).setParent(parent);
+        s2 = parent.createChild(WSolderGridCellWireSlot::new, cellpos.add(11, 9, 5), Size.of(10, 10)).setParent(parent);
+    }
+    public int get_z(){
+        return this.z;
     }
 
-    public void toggle_lock(boolean lock_state){
-//        s1.set_locked(lock_state);
-//        s2.set_locked(lock_state);
+    public void set_locked(boolean lock_state){
+        s1.set_locked(lock_state);
+        s2.set_locked(lock_state);
     }
     public void set_visibility(boolean visibility){
 //        num1.setHidden(visibility);

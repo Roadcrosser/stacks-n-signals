@@ -113,7 +113,7 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
         button.setOnMouseClicked((widget, mouseX, mouseY, mouseButton) ->
         {
             bool = !bool;
-//            soldergrid.toggle_lock(bool);
+            soldergrid.set_locked(bool);
 //            container.player.sendMessage(new LiteralText("text: " + textfield.getText()), false);
 //
 //            PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());

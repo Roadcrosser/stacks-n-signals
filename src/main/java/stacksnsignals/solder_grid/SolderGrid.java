@@ -49,14 +49,12 @@ public class SolderGrid {
         return wire_mode;
     }
 
-    public void showlayer(int layer){
-        for (int i=0; i<this.z; i++){
-            for (int u=0; u<grid_size; u++){
-                for (int v=0; v<grid_size; v++){
-                    grid.get(i).get(u).get(v).set_visibility(layer == this.z);
-                }
-            }
-        }
+    public void show_layer(int layer){
+        grid.forEach((row) -> row.forEach((line) -> line.forEach((cell) -> cell.set_visibility(layer == cell.get_z()))));
+    }
+
+    public void set_locked(boolean lock_state){
+        grid.forEach((row) -> row.forEach((line) -> line.forEach((cell) -> cell.set_locked(lock_state))));
     }
 
 }

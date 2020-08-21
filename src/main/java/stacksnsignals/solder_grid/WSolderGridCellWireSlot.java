@@ -14,14 +14,15 @@ import stacksnsignals.Stacks_n_Signals;
 @Environment(EnvType.CLIENT)
 public class WSolderGridCellWireSlot extends WAbstractToggle {
 
+    protected boolean locked = false;
+
     @Override
     public void onMouseClicked(float mouseX, float mouseY, int mouseButton) {
-//        if (!locked){
-//        }
+        if (!locked){
+            super.onMouseClicked(mouseX, mouseY, mouseButton);
+        }
 
-        setToggleState(!getToggleState());
         Stacks_n_Signals.log(Level.INFO, getToggleState() ? "on" : "off");
-        super.onMouseClicked(mouseX, mouseY, mouseButton);
     }
 
     @Override
@@ -37,7 +38,8 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
         float sX = getWidth();
         float sY = getHeight();
 
-        Color col = isFocused() ? Color.of(0xff0000ff) : Color.of(0xffff0033);
+        Color col = getToggleState() ? Color.of(0xff0000ff) : Color.of(0xffff0033);
+//        Color col = isFocused() ? Color.of(0xff0000ff) : Color.of(0xffff0033);
 
         BaseRenderer.drawQuad(matrices, provider, x, y, z, sX, 1, col);
         BaseRenderer.drawQuad(matrices, provider, x, y, z, 1, sY, col);
@@ -54,6 +56,10 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
 //        }
 
         super.draw(matrices, provider);
+    }
+
+    public void set_locked(boolean lock_state){
+        locked = lock_state;
     }
 
     @Override
