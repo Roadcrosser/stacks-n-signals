@@ -21,6 +21,7 @@ public class SolderGridCell {
     SolderGrid grid;
 
     List<WSolderGridCellWireSlot> wire_slots = new ArrayList<>();
+    WSolderGridCellWireBridge wire_bridge;
 
     private int x;
     private int y;
@@ -37,16 +38,16 @@ public class SolderGridCell {
         Position cellpos = Utils.calculate_grid_coordinates(parent);
         cellpos = cellpos.add((cell_size * x), (cell_size * y), 0);
 
-        int slot_l1 = 3;
+        int slot_l1 = 4;
         int slot_l2 = 6;
-        for (int i=0; i<4; i++){
+        for (int i=0; i<5; i++){
             int slot_width = slot_l1;
             int slot_height = slot_l2;
 
             float slot_x = (float)(cell_size - slot_width)/2;
             float slot_y = 1;
 
-            if (i % 2 != 0){
+            if (i % 2 != 0 || i == 4){
                 slot_width = slot_l2;
                 slot_height = slot_l1;
                 slot_y = (float)(cell_size - slot_height)/2;
@@ -68,8 +69,13 @@ public class SolderGridCell {
                     break;
             }
 
-            wire_slots.add(parent.createChild(WSolderGridCellWireSlot::new).set_cell_position(i).setPosition(cellpos.add(slot_x, slot_y, 5)).setSize(Size.of(slot_width, slot_height)).setParent(parent));
+            if (i != 4){
+                wire_slots.add(parent.createChild(WSolderGridCellWireSlot::new).set_cell_position(i).setPosition(cellpos.add(slot_x, slot_y, 5)).setSize(Size.of(slot_width, slot_height)).setParent(parent));
+            } else {
+                wire_bridge = parent.createChild(WSolderGridCellWireBridge::new).set_slots(wire_slots).setPosition(cellpos.add(slot_x, slot_y, 5)).setSize(Size.of(slot_l1, slot_l1)).setParent(parent);
+            }
         }
+
 
     }
     public int get_z(){
