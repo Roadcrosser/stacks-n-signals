@@ -72,12 +72,25 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
 
         int padding = 10;
 
-        panel.createChild(WSlot::new, panel_pos.add((panel.getWidth()/2)-(cell_size)-padding, (panel.getHeight()/2) - cell_size, 1),
+        int scrollbar_padding = 9;
+        WVerticalScrollableContainer component_holder = panel.createChild(WVerticalScrollableContainer::new,
+                panel_pos.add((panel.getWidth()/2)-(cell_size)-padding-scrollbar_padding, panel.getY() + padding, 0),
+                Size.of(cell_size + scrollbar_padding, cell_size * 5));
+
+        component_holder.setHasFade(false);
+        component_holder.setHasArrows(false);
+        component_holder.setScrollbarWidth(7);
+
+        for (int i=0; i<8; i++){
+            component_holder.addRow(new WToggle().setSize(Size.of(15, 15)));
+        }
+
+        panel.createChild(WSlot::new, panel_pos.add((panel.getWidth()/2)-(cell_size * 3)-padding, (panel.getHeight()/2) - cell_size, 1),
                 Size.of(cell_size, cell_size))
                 .setSlotNumber(0)
                 .setInventoryNumber(SolderingStationHandler.SOLDERING_STATION_INVENTORY);
 
-        int cache_padding = 125;
+        int cache_padding = 150;
 
         for (int i=0; i<3; i++){
             panel.createChild(WSlot::new, panel_pos.add((panel.getWidth()/2)-cache_padding+(i*(cell_size + 2)), (panel.getHeight()/2) - cell_size, 1),
@@ -100,7 +113,7 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
 
         textfield.setHidden(true);
         WButton button = panel.createChild(WButton::new, Position.of(200, 10, 1), Size.of(10, 10)).setParent(panel);
-//        button.setHidden(true);
+        button.setHidden(true);
 
 
 
