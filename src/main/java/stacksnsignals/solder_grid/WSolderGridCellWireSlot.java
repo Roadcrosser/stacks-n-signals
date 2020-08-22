@@ -95,7 +95,7 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
 
     @Override
     public boolean isWithinBounds(float positionX, float positionY){
-        if (!within_bounds_raw_check(positionX, positionY)){
+        if (!within_bounds_raw_check(positionX, positionY) || locked){
             return false;
         }
 
@@ -112,7 +112,7 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
 
     @Override
     public void draw(MatrixStack matrices, VertexConsumerProvider provider) {
-        if (isHidden()) {
+        if (isHidden() || (!getToggleState() && locked)) {
             return;
         }
 
