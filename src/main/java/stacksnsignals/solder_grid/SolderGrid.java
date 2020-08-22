@@ -32,14 +32,15 @@ public class SolderGrid {
                 grid.get(i).add(new ArrayList<>());
                 for (int v=0; v<grid_size; v++) {
                     // draw display grid on first layer
-                    // drawn first so cell background does not render over other elements (that do not respect z axis)
+                    // drawn first so cell background does not render over other elements (that do not respect z axis)'
+                    Position curr_cell_pos = cellpos.add(cell_size * v, cell_size * u, 1);
                     if (i == 0) {
                         parent.createChild(WSolderGridCellPlate::new,
-                                cellpos.add(cell_size * v, cell_size * u, 1),
+                                curr_cell_pos,
                                 Size.of(cell_size, cell_size)).setParent(parent);
                     }
 
-                    grid.get(i).get(u).add(new SolderGridCell(v, u, i, parent, this));
+                    grid.get(i).get(u).add(new SolderGridCell(v, u, i, parent, this, curr_cell_pos));
 
                 }
 

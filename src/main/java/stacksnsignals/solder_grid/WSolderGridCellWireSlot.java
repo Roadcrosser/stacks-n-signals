@@ -5,12 +5,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.Level;
 import spinnery.client.render.BaseRenderer;
-import spinnery.client.render.TextRenderer;
 import spinnery.widget.WAbstractToggle;
 import spinnery.widget.api.Color;
-import stacksnsignals.Stacks_n_Signals;
 import stacksnsignals.Utils;
 
 import java.util.ArrayList;
@@ -22,16 +19,16 @@ import static stacksnsignals.Stacks_n_Signals.MOD_ID;
 public class WSolderGridCellWireSlot extends WAbstractToggle {
 
     protected boolean locked = false;
-    protected int cell_position = 0;
+    protected int cell_location = 0;
     protected Identifier texture;
     protected Identifier texture_hover;
 
     ArrayList<WSolderGridCellWireSlot> slot_list = new ArrayList<>();
 
-    public WSolderGridCellWireSlot set_cell_position(int cell_position){
-        this.cell_position = cell_position;
-        texture = new Identifier(MOD_ID, String.format("textures/ui/wires/%d.png", cell_position));
-        texture_hover = new Identifier(MOD_ID, String.format("textures/ui/wires/%db.png", cell_position));
+    public WSolderGridCellWireSlot set_cell_location(int cell_location){
+        this.cell_location = cell_location;
+        texture = new Identifier(MOD_ID, String.format("textures/ui/wires/%d.png", cell_location));
+        texture_hover = new Identifier(MOD_ID, String.format("textures/ui/wires/%db.png", cell_location));
         return this;
     }
 
@@ -50,7 +47,7 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
     public boolean within_bounds_raw_check(float xt, float yt){
         float x0 = 0, y0 = 0, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 
-        switch (cell_position){
+        switch (cell_location){
             case 0:
                 x0 = getX();
                 x1 = getWideX();
@@ -103,7 +100,7 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
         }
 
         for (int i = 0; i < slot_list.size(); i++){
-            if (i == cell_position){
+            if (i == cell_location){
                 continue;
             }
             if (slot_list.get(i).within_bounds_raw_check(positionX, positionY)){
@@ -126,7 +123,7 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
         float sX = getWidth();
         float sY = getHeight();
 
-        switch (cell_position) {
+        switch (cell_location) {
             case 0:
                 x += 6;
                 sX -= 12;
