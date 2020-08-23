@@ -1,16 +1,8 @@
 package stacksnsignals.solder_grid;
 
-import net.minecraft.text.LiteralText;
-import org.apache.logging.log4j.Level;
-import spinnery.widget.WAbstractWidget;
 import spinnery.widget.WPanel;
-import spinnery.widget.WStaticText;
-import spinnery.widget.WToggle;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
-import spinnery.widget.api.WPositioned;
-import stacksnsignals.Stacks_n_Signals;
-import stacksnsignals.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +13,9 @@ public class SolderGridCell {
 
     SolderGrid grid;
 
-    List<WSolderGridCellWireSlot> wire_slots = new ArrayList<>();
+    List<WSolderGridCellDirectionalSlot> wire_slots = new ArrayList<>();
     WSolderGridCellWireBridge wire_bridge;
+    WSolderGridCellComponentSlot component_slot;
 
     private int x;
     private int y;
@@ -71,7 +64,7 @@ public class SolderGridCell {
             }
 
             if (i != 4){
-                wire_slots.add(parent.createChild(WSolderGridCellWireSlot::new)
+                wire_slots.add(parent.createChild(WSolderGridCellDirectionalSlot::new)
                         .set_cell_location(i)
                         .setPosition(cell_position.add(slot_x, slot_y, 5))
                         .setSize(Size.of(slot_width, slot_height))
@@ -86,6 +79,11 @@ public class SolderGridCell {
         }
 
         wire_slots.forEach((slot) -> slot.set_slots(wire_slots));
+
+        component_slot = parent.createChild(WSolderGridCellComponentSlot::new)
+            .set_directional_slots(wire_slots)
+            .setPosition(cell_position.add(1, 1, 6))
+            .setSize(Size.of(cell_size-1, cell_size-1));
 
 
     }

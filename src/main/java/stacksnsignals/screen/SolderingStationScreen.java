@@ -113,7 +113,7 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
 
         textfield.setHidden(true);
         WButton button = panel.createChild(WButton::new, Position.of(200, 10, 1), Size.of(10, 10)).setParent(panel);
-        button.setHidden(true);
+//        button.setHidden(true);
 
 
 

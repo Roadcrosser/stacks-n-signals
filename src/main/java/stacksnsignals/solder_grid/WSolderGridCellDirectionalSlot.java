@@ -16,23 +16,23 @@ import java.util.List;
 import static stacksnsignals.Stacks_n_Signals.MOD_ID;
 
 @Environment(EnvType.CLIENT)
-public class WSolderGridCellWireSlot extends WAbstractToggle {
+public class WSolderGridCellDirectionalSlot extends WAbstractToggle {
 
     protected boolean locked = false;
     protected int cell_location = 0;
     protected Identifier texture;
     protected Identifier texture_hover;
 
-    ArrayList<WSolderGridCellWireSlot> slot_list = new ArrayList<>();
+    ArrayList<WSolderGridCellDirectionalSlot> slot_list = new ArrayList<>();
 
-    public WSolderGridCellWireSlot set_cell_location(int cell_location){
+    public WSolderGridCellDirectionalSlot set_cell_location(int cell_location){
         this.cell_location = cell_location;
         texture = new Identifier(MOD_ID, String.format("textures/ui/wires/%d.png", cell_location));
         texture_hover = new Identifier(MOD_ID, String.format("textures/ui/wires/%db.png", cell_location));
         return this;
     }
 
-    public WSolderGridCellWireSlot set_slots(List<WSolderGridCellWireSlot> slots){
+    public WSolderGridCellDirectionalSlot set_slots(List<WSolderGridCellDirectionalSlot> slots){
         slot_list.addAll(slots);
         return this;
     }
@@ -95,7 +95,7 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
 
     @Override
     public boolean isWithinBounds(float positionX, float positionY){
-        if (!within_bounds_raw_check(positionX, positionY) || locked){
+        if (!within_bounds_raw_check(positionX, positionY)){
             return false;
         }
 
@@ -155,7 +155,10 @@ public class WSolderGridCellWireSlot extends WAbstractToggle {
             if (getToggleState() && isFocused()){
                 to_draw = texture_hover;
             }
+
+            matrices.push();
             BaseRenderer.drawTexturedQuad(matrices, provider, x, y, z, sX, sY, Color.of(getToggleState() ? 0xffffffff : 0x99ffffff), to_draw);
+            matrices.pop();
         }
 
         super.draw(matrices, provider);

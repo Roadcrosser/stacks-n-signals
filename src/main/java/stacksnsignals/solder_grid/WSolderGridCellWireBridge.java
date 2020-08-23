@@ -7,7 +7,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import spinnery.client.render.BaseRenderer;
 import spinnery.widget.WAbstractWidget;
-import spinnery.widget.WStaticImage;
 import spinnery.widget.api.Color;
 
 import java.util.ArrayList;
@@ -17,9 +16,9 @@ import static stacksnsignals.Stacks_n_Signals.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class WSolderGridCellWireBridge extends WAbstractWidget {
-    ArrayList<WSolderGridCellWireSlot> slot_list = new ArrayList<>();
+    ArrayList<WSolderGridCellDirectionalSlot> slot_list = new ArrayList<>();
 
-    public WSolderGridCellWireBridge set_slots(List<WSolderGridCellWireSlot> slots){
+    public WSolderGridCellWireBridge set_slots(List<WSolderGridCellDirectionalSlot> slots){
         slot_list.addAll(slots);
         return this;
     }
@@ -49,7 +48,7 @@ public class WSolderGridCellWireBridge extends WAbstractWidget {
         int ghost_connections = 0;
 
         for (int i=0; i<slot_list.size(); i++){
-            WSolderGridCellWireSlot curr_slot = slot_list.get(i);
+            WSolderGridCellDirectionalSlot curr_slot = slot_list.get(i);
 
             if (curr_slot.getToggleState()){
                 current_bridge.append(i);
@@ -75,7 +74,6 @@ public class WSolderGridCellWireBridge extends WAbstractWidget {
             BaseRenderer.drawTexturedQuad(matrices, provider, x, y, z, sX, sY,Color.of(0x99ffffff), new Identifier(MOD_ID, ghost_bridge.toString()));
         }
 
-        super.draw(matrices, provider);
     }
 
 }
