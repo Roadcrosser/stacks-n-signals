@@ -55,6 +55,7 @@ public class Stacks_n_Signals implements ModInitializer {
         HandlerRegistry.initialize();
         ItemRegistry.initialize();
         PacketRegistry.initialize();
+        ComponentRegistry.initialize();
         }
 
 

@@ -15,11 +15,16 @@ import spinnery.widget.*;
 import spinnery.widget.api.Position;
 import spinnery.widget.api.Size;
 import stacksnsignals.Stacks_n_Signals;
+import stacksnsignals.components.Diode;
+import stacksnsignals.components._GenericComponent;
 import stacksnsignals.entity.SolderingStationEntity;
 import stacksnsignals.handler.SolderingStationHandler;
+import stacksnsignals.registry.ComponentRegistry;
 import stacksnsignals.registry.ItemRegistry;
 import stacksnsignals.solder_grid.SolderGrid;
 import stacksnsignals.solder_grid.WSolderGridCellPlate;
+
+import java.lang.reflect.InvocationTargetException;
 
 import static stacksnsignals.Constants.cell_size;
 
@@ -125,8 +130,9 @@ public class SolderingStationScreen extends BaseHandledScreen<SolderingStationHa
 
         button.setOnMouseClicked((widget, mouseX, mouseY, mouseButton) ->
         {
-            bool = !bool;
-            soldergrid.set_locked(bool);
+
+//            bool = !bool;
+//            soldergrid.set_locked(bool);
 //            container.player.sendMessage(new LiteralText("text: " + textfield.getText()), false);
 //
 //            PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
